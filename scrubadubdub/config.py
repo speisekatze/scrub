@@ -3,11 +3,15 @@ import yaml
 
 envmap = {
   'model': "SPACY_MODEL",
-  'pattern': "SCUB_EXTRA_PATTERN"
+  'replace': "SCRUB_REPLACEMENT",
+  'pattern': "SCRUB_EXTRA_PATTERN",
+  'entity_label': "SCRUB_LABEL"
 }
 defaults = {
-  'model': "de_dep_news_trf",
-  'pattern': ""
+  'model': "de_core_news_lg",
+  'replace': "[ZENSIERT]",
+  'pattern': "",
+  'entity_label': "PER"
 }
 
 class config:
@@ -29,8 +33,8 @@ class config:
       e = environ.get(envmap[name])
       if e is not None:
         return e
-    if self.store and name in self.store:
-      return self.store[name]
+    if self.store and name in self.store['scrub']:
+      return self.store['scrub'][name]
     if name in defaults:
       return defaults[name]
     return ''
