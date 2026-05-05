@@ -1,5 +1,9 @@
 scrub:
-  spacy: de_dep_news_trf
+  model: de_core_news_lg
+  replace: "[ZENSIERT]"
+  entity_label:
+    - "PER"
+    - "PERSON"
   pattern:
-    custom:
-      - "[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}"
+    iban: "[A-Z]{2}[0-9]{2}[A-Z0-9]{1,30}"
+    bic: "\b[a-zA-Z]{6}[2-9a-zA-Z]{1}[0-9a-np-zA-NP-Z]{1}(?:[0-9a-wy-zA-WY-Z]{1}[0-9a-zA-Z]{2}|[xX]{3}|)\b"
