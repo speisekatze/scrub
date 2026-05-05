@@ -15,6 +15,7 @@ import spacy
 
 class Scrub:
     def __init__(self, conf):
+        self.debug = False
         # Load Spacy NLP model
         self.nlp = spacy.load(conf.get('model'))
         self.label = conf.get('entity_label')
@@ -33,7 +34,11 @@ class Scrub:
         for key, pattern in pcustom.items():
             self.patterns[key] = pattern
 
+    def print_debug(self, message):
+        if self.debug:
+            print(message)
 
+    
     def scrub_text(self, text: str) -> str:
         scrubbed_text = text
         for category, pattern in self.patterns.items():
@@ -54,7 +59,7 @@ class Scrub:
         nlp_doc = self.nlp(text)
         final_text = text
         for name in nlp_doc.ents:
-            print(name.text, name.label_)
+            self.print_debug(f"Entity: {name.text}  Label: {name.label_}")
             if name.label_ in self.label:
                 final_text = re.sub(re.escape(name.text), self.replace, final_text)
         return final_text
