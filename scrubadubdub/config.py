@@ -11,7 +11,7 @@ defaults = {
   'model': "de_core_news_lg",
   'replace': "[ZENSIERT]",
   'pattern': "",
-  'entity_label': "PER"
+  'entity_label': ["PER"]
 }
 
 class config:
